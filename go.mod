@@ -1,4 +1,4 @@
-module github.com/major1201/go-concurrency
+module github.com/jhonnli/go-concurrency
 
 go 1.12
 
