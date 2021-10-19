@@ -57,7 +57,8 @@ func (jg *JobGroup) Start() {
 			return
 		case payload := <-jg.payloads:
 			if err := jg.sem.Acquire(jg.ctx, int64(payload.weight)); err != nil {
-				log.Println(fmt.Printf("%+v\n", errors.Wrap(err, "semaphore acquire error")))
+				log.Println(fmt.Sprintf("%+v\n", errors.Wrap(err, "semaphore acquire error")))
+				println(fmt.Sprintf("%+v\n", errors.Wrap(err, "semaphore acquire error")))
 				break
 			}
 			jg.eg.Go(func() error {
@@ -80,10 +81,14 @@ func (jg *JobGroup) runPayload(payload *Payload) {
 			if r := recover(); r != nil {
 				if re, ok := r.(error); ok {
 					log.Println("==================================")
+					println("println==================================")
 					log.Println(re.Error())
-					log.Println(fmt.Printf("%+v\n", errors.WithMessage(re, "[Recover from Panic]")))
+					println(re.Error())
+					log.Println(fmt.Sprintf("%+v\n", errors.WithMessage(re, "[Recover from Panic]")))
+					println(fmt.Sprintf("---[Recover from Panic]：%v", re))
 				} else {
-					log.Println(fmt.Printf("[Recover from Panic]%v\n", r))
+					log.Println(fmt.Sprintf("[Recover from Panic]%v\n", r))
+					println(fmt.Sprintf("[Recover from Panic]%v\n", r))
 				}
 				jg.sem.Release(int64(payload.weight))
 			}
