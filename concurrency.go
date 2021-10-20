@@ -90,7 +90,7 @@ func (jg *JobGroup) runPayload(payload *Payload) {
 					log.Println(fmt.Sprintf("[Recover from Panic]%v\n", r))
 					println(fmt.Sprintf("[Recover from Panic]%v\n", r))
 				}
-				jg.sem.Release(int64(payload.weight))
+				//jg.sem.Release(int64(payload.weight))
 			}
 		}()
 
